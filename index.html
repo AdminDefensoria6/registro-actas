@@ -1555,7 +1555,7 @@
                 }
             }
             
-            // Configurar listeners de Firestore
+            // Configurar listeners de Firestore - CAMBIADO A DESCENDENTE
             function setupFirestoreListeners() {
                 loadingOverlay.style.display = 'flex';
                 
@@ -1574,9 +1574,9 @@
                         connectionStatus.style.display = 'flex';
                     });
 
-                // Escuchar cambios en la colección de actas
+                // Escuchar cambios en la colección de actas - ORDEN DESCENDENTE
                 db.collection("actas")
-                    .orderBy("number", "asc")
+                    .orderBy("number", "desc") // CAMBIADO A DESC
                     .onSnapshot((snapshot) => {
                         records = [];
                         snapshot.forEach((doc) => {
@@ -1612,12 +1612,14 @@
                     });
             }
             
-            // Cargar registros desde localStorage como respaldo
+            // Cargar registros desde localStorage como respaldo - ORDEN DESCENDENTE
             function loadRecordsFromLocalStorage() {
                 try {
                     const storedRecords = localStorage.getItem('actas');
                     if (storedRecords) {
                         records = JSON.parse(storedRecords);
+                        // Ordenar en orden descendente por número
+                        records.sort((a, b) => b.number - a.number);
                         updateYearFilter();
                         updateStats();
                         renderTable();
@@ -1874,7 +1876,7 @@
                 currentYearRecords.textContent = currentYearCount;
             }
             
-            // Renderizar la tabla de registros
+            // Renderizar la tabla de registros - MANTIENE ORDEN DESCENDENTE
             function renderTable() {
                 recordsBody.innerHTML = '';
                 
@@ -2122,6 +2124,8 @@
                         } else {
                             newRecord.id = Date.now().toString();
                             records.push(newRecord);
+                            // Ordenar en orden descendente
+                            records.sort((a, b) => b.number - a.number);
                             saveRecordsToLocalStorage();
                             showNotification("Acta creada correctamente (modo local)", "success");
                         }
@@ -2182,6 +2186,8 @@
                                 }
                                 
                                 records[index] = { ...records[index], ...updateData };
+                                // Ordenar en orden descendente
+                                records.sort((a, b) => b.number - a.number);
                                 saveRecordsToLocalStorage();
                                 showNotification("Acta actualizada correctamente (modo local)", "success");
                             }
@@ -2386,7 +2392,7 @@
                 renderTable();
             }
             
-            // Ver todos los registros en el modal de contenido
+            // Ver todos los registros en el modal de contenido - MANTIENE ORDEN DESCENDENTE
             function viewAllRecords() {
                 if (records.length === 0) {
                     alert('No hay registros para mostrar.');
@@ -2395,6 +2401,7 @@
 
                 let allContent = '';
 
+                // Usar el array 'records' que ya está en orden descendente
                 records.forEach(record => {
                     const formattedContent = record.content ? record.content.replace(/\n/g, '<br>') : '';
                     
