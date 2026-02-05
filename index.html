@@ -46,15 +46,16 @@
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 10px;
         }
 
+        /* NUEVA CABECERA IDÉNTICA A ESCRITOS */
         header {
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 1.5rem;
+            padding: 1.2rem 1rem;
             border-radius: var(--radius);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             box-shadow: var(--shadow);
             display: flex;
             justify-content: space-between;
@@ -63,43 +64,209 @@
 
         .header-content {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 15px;
             width: 100%;
         }
 
         h1 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
+            text-align: center;
         }
 
         .stats {
-            display: flex;
-            gap: 15px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
             background: rgba(255, 255, 255, 0.15);
-            padding: 10px 15px;
+            padding: 10px;
             border-radius: var(--radius-sm);
             backdrop-filter: blur(10px);
-            flex-wrap: wrap;
         }
 
         .stat-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-width: 80px;
+            justify-content: center;
+            padding: 6px 0;
         }
 
         .stat-value {
             font-size: 1.2rem;
             font-weight: 700;
+            line-height: 1.2;
         }
 
         .stat-label {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             opacity: 0.9;
+            text-align: center;
+            margin-top: 2px;
+            line-height: 1.1;
         }
 
+        .monthly-stats {
+            display: none;
+            overflow-x: auto;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-sm);
+        }
+
+        .monthly-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 5px;
+            min-width: 800px;
+        }
+
+        .month-stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4px 2px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            min-width: 50px;
+        }
+
+        .month-stat-value {
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .month-stat-label {
+            font-size: 0.6rem;
+            opacity: 0.9;
+            text-align: center;
+            margin-top: 1px;
+            line-height: 1;
+        }
+
+        /* RESPONSIVE PARA LA NUEVA CABECERA */
+        @media (min-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 1.2rem;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .stats {
+                gap: 10px;
+                padding: 12px;
+            }
+            
+            .stat-item {
+                padding: 8px 0;
+            }
+            
+            .stat-value {
+                font-size: 1.3rem;
+            }
+            
+            .stat-label {
+                font-size: 0.75rem;
+            }
+            
+            .monthly-stats {
+                padding: 12px;
+            }
+            
+            .monthly-stats-grid {
+                gap: 8px;
+            }
+            
+            .month-stat-item {
+                padding: 5px 3px;
+                min-width: 55px;
+            }
+            
+            .month-stat-value {
+                font-size: 0.95rem;
+            }
+            
+            .month-stat-label {
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header-content {
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            h1 {
+                text-align: left;
+                font-size: 1.8rem;
+            }
+            
+            .monthly-stats {
+                display: block;
+            }
+            
+            .monthly-stats-grid {
+                min-width: 1000px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .monthly-stats-grid {
+                min-width: 1200px;
+            }
+        }
+
+        @media (max-width: 479px) {
+            .stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+                padding: 8px;
+            }
+            
+            .stat-item:nth-child(1) {
+                grid-column: 1 / span 3;
+                margin-bottom: 5px;
+            }
+            
+            .stat-value {
+                font-size: 1.1rem;
+            }
+            
+            .stat-label {
+                font-size: 0.65rem;
+            }
+        }
+        
+        @media (max-width: 320px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .stat-item:nth-child(1) {
+                grid-column: 1 / span 2;
+            }
+        }
+
+        /* EL RESTO DE LOS ESTILOS PERMANECE INTACTO */
         .controls-container {
             display: flex;
             flex-wrap: wrap;
@@ -1076,25 +1243,37 @@
     </div>
 
     <div class="container">
+        <!-- NUEVA CABECERA IDÉNTICA A ESCRITOS -->
         <header>
             <div class="header-content">
-                <h1>Libro de Actas</h1>
+                <h1>Actas</h1>
                 <div class="stats">
                     <div class="stat-item">
                         <span class="stat-value" id="totalRecords">0</span>
                         <span class="stat-label">Total</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-value" id="textRecords">0</span>
-                        <span class="stat-label">Con Texto</span>
+                        <span class="stat-value" id="trimestre1">0</span>
+                        <span class="stat-label">Ene-Mar</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-value" id="noTextRecords">0</span>
-                        <span class="stat-label">Sin Texto</span>
+                        <span class="stat-value" id="trimestre2">0</span>
+                        <span class="stat-label">Abr-Jun</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-value" id="currentYearRecords">0</span>
-                        <span class="stat-label">Este Año</span>
+                        <span class="stat-value" id="trimestre3">0</span>
+                        <span class="stat-label">Jul-Sep</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="trimestre4">0</span>
+                        <span class="stat-label">Oct-Dic</span>
+                    </div>
+                </div>
+                
+                <!-- Estadísticas mensuales -->
+                <div class="monthly-stats" id="monthlyStats">
+                    <div class="monthly-stats-grid" id="monthlyStatsGrid">
+                        <!-- Se llenará dinámicamente con JavaScript -->
                     </div>
                 </div>
             </div>
@@ -1500,14 +1679,19 @@
             const nextPageBtn = document.getElementById('nextPageBtn');
             const pageInfo = document.getElementById('pageInfo');
             const totalRecords = document.getElementById('totalRecords');
-            const textRecords = document.getElementById('textRecords');
-            const noTextRecords = document.getElementById('noTextRecords');
-            const currentYearRecords = document.getElementById('currentYearRecords');
             const saveBtn = document.getElementById('saveBtn');
             const saveBtnText = document.getElementById('saveBtnText');
             const saveBtnSpinner = document.getElementById('saveBtnSpinner');
             const connectionStatus = document.getElementById('connectionStatus');
             const loadingOverlay = document.getElementById('loadingOverlay');
+            
+            // Nuevos elementos para KPIs de la cabecera
+            const trimestre1 = document.getElementById('trimestre1');
+            const trimestre2 = document.getElementById('trimestre2');
+            const trimestre3 = document.getElementById('trimestre3');
+            const trimestre4 = document.getElementById('trimestre4');
+            const monthlyStats = document.getElementById('monthlyStats');
+            const monthlyStatsGrid = document.getElementById('monthlyStatsGrid');
             
             // Elementos del formulario con campos nuevos
             const dictamenDateInput = document.getElementById('dictamenDate');
@@ -1544,6 +1728,9 @@
             let contentPages = [];
             let currentContentPage = 1;
             const wordsPerPage = 5000;
+            
+            // Nombres de meses para mostrar en estadísticas
+            const monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
             
             // Inicializar la aplicación
             function init() {
@@ -1600,6 +1787,8 @@
                         
                         updateYearFilter();
                         updateStats();
+                        updateTrimestreStats();
+                        updateMonthlyStats();
                         renderTable();
                         
                         loadingOverlay.style.display = 'none';
@@ -1622,6 +1811,8 @@
                         records.sort((a, b) => b.number - a.number);
                         updateYearFilter();
                         updateStats();
+                        updateTrimestreStats();
+                        updateMonthlyStats();
                         renderTable();
                     } else {
                         emptyState.style.display = 'block';
@@ -1863,17 +2054,94 @@
                 }
             }
             
-            // Actualizar estadísticas
+            // Actualizar estadísticas principales
             function updateStats() {
                 totalRecords.textContent = records.length;
+            }
+            
+            // Actualizar estadísticas por trimestre
+            function updateTrimestreStats() {
+                let trim1 = 0, trim2 = 0, trim3 = 0, trim4 = 0;
                 
-                const withText = records.filter(record => record.content && record.content.trim() !== '').length;
-                const withoutText = records.length - withText;
-                const currentYearCount = records.filter(record => record.year === currentYear.toString()).length;
+                // Obtener el año seleccionado en el filtro
+                const selectedYear = yearFilter.value;
                 
-                textRecords.textContent = withText;
-                noTextRecords.textContent = withoutText;
-                currentYearRecords.textContent = currentYearCount;
+                // Filtrar registros por año si no es "todos"
+                let recordsToCheck = records;
+                if (selectedYear !== 'todos') {
+                    recordsToCheck = records.filter(record => {
+                        const dateObj = new Date(record.dictamenDate);
+                        return dateObj.getFullYear().toString() === selectedYear;
+                    });
+                }
+                
+                // Contar por trimestre
+                recordsToCheck.forEach(record => {
+                    const dateObj = new Date(record.dictamenDate);
+                    const month = dateObj.getMonth() + 1; // 1-12
+                    
+                    if (month >= 1 && month <= 3) {
+                        trim1++;
+                    } else if (month >= 4 && month <= 6) {
+                        trim2++;
+                    } else if (month >= 7 && month <= 9) {
+                        trim3++;
+                    } else if (month >= 10 && month <= 12) {
+                        trim4++;
+                    }
+                });
+                
+                // Actualizar los elementos HTML
+                trimestre1.textContent = trim1;
+                trimestre2.textContent = trim2;
+                trimestre3.textContent = trim3;
+                trimestre4.textContent = trim4;
+            }
+            
+            // Actualizar estadísticas mensuales
+            function updateMonthlyStats() {
+                monthlyStatsGrid.innerHTML = '';
+                
+                // Inicializar contadores para cada mes
+                const monthCounts = Array(12).fill(0);
+                
+                // Obtener el año seleccionado en el filtro
+                const selectedYear = yearFilter.value;
+                
+                // Filtrar registros por año si no es "all"
+                let recordsToCheck = records;
+                if (selectedYear !== 'todos') {
+                    recordsToCheck = records.filter(record => {
+                        const dateObj = new Date(record.dictamenDate);
+                        return dateObj.getFullYear().toString() === selectedYear;
+                    });
+                }
+                
+                // Contar por mes
+                recordsToCheck.forEach(record => {
+                    const dateObj = new Date(record.dictamenDate);
+                    const month = dateObj.getMonth(); // 0-11
+                    if (month >= 0 && month <= 11) {
+                        monthCounts[month]++;
+                    }
+                });
+                
+                // Crear elementos para cada mes
+                monthCounts.forEach((count, index) => {
+                    const monthStatItem = document.createElement('div');
+                    monthStatItem.className = 'month-stat-item';
+                    
+                    monthStatItem.innerHTML = `
+                        <span class="month-stat-value">${count}</span>
+                        <span class="month-stat-label">${monthNames[index]}</span>
+                    `;
+                    
+                    monthlyStatsGrid.appendChild(monthStatItem);
+                });
+                
+                // Mostrar u ocultar la sección de estadísticas mensuales
+                const hasData = monthCounts.some(count => count > 0);
+                monthlyStats.style.display = hasData ? 'block' : 'none';
             }
             
             // Renderizar la tabla de registros - MANTIENE ORDEN DESCENDENTE
@@ -2197,6 +2465,8 @@
                     if (!firebaseInitialized) {
                         updateYearFilter();
                         updateStats();
+                        updateTrimestreStats();
+                        updateMonthlyStats();
                         renderTable();
                     }
                     
@@ -2389,6 +2659,8 @@
                 });
                 
                 currentPage = 1;
+                updateTrimestreStats();
+                updateMonthlyStats();
                 renderTable();
             }
             
